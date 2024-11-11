@@ -14,35 +14,35 @@
 ```js
 // Свойства:
 properties: [{
-	 name: String, 
-	 maximize: Boolean
+  name: String, 
+  maximize: Boolean
 }],
 // Предметы:
 items: [{
-	name: String,
-	properties: [{
-		name: String // — привязано к name в properties
-		value: Number
-	}],
-	stock: Number (if config.stock is true)
+  name: String,
+  properties: [{
+    name: String // — привязано к name в properties
+    value: Number
+  }],
+  stock: Number (if config.stock is true)
 }],
 // Рюкзаки:
 backpacks: [{
-	// Ограничения по свойствам в сумме:
-	restrictions: [{
-		property: String, // — привязано к name в properties
-		value: Number,
-		enabled: Boolean
-	}],
-	// Предметы в рюкзаке (заполняется программно):
-	items: [{
-		...item,
-		quantity: Number
-	}]
+  // Ограничения по свойствам в сумме:
+  restrictions: [{
+    property: String, // — привязано к name в properties
+    value: Number,
+    enabled: Boolean
+  }],
+  // Предметы в рюкзаке (заполняется программно):
+  items: [{
+    ...item,
+    quantity: Number
+  }]
 }],
 config: {
-	stock: Boolean // — ограничивать ли количество предметов
-	// ...
+  stock: Boolean // — ограничивать ли количество предметов
+  // ...
 }
 ```
 
@@ -92,3 +92,9 @@ config: {
 ```
 
 Вот так и живём.
+
+## Как хостить
+
+1. `git clone https://github.com/intredford/knapsack-problem`
+
+2. Раздайте получившуюся папку статическим сервером.
