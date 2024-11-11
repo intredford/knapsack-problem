@@ -131,6 +131,6 @@ menu {
 	text-decoration: underline;
 }
 .form-group.focused label {
-	color: AccentColor;
+	color: var(--color-accent);
 	opacity: 1;
 }
