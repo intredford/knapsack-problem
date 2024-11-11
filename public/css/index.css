@@ -134,3 +134,55 @@ menu {
 	color: var(--color-accent);
 	opacity: 1;
 }
+
+@media screen and (max-width: 800px) {
+	.items {
+		grid-template-columns: repeat(3, 1fr);
+	}
+	.backpacks {
+		grid-template-columns: repeat(3, 1fr);
+	}
+	.results {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media screen and (max-width: 600px) {
+	menu {
+		flex-direction: column;
+		gap: 0.5em;
+		padding-top: 0.5em;
+		padding-bottom: 0.5em;
+	}
+	.items {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.3em;
+	}
+	.backpacks {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.3em;
+	}
+	.results {
+		grid-template-columns: repeat(1, 1fr);
+		gap: 0.3em;
+	}
+	.property button {
+		width: 2em;
+	}
+}
+
+@media screen and (max-width: 380px) {
+	menu h1 {
+		font-size: 1.4em;
+		text-align: center;
+	}
+	.items {
+		grid-template-columns: repeat(1, 1fr);
+	}
+	.backpacks {
+		grid-template-columns: repeat(1, 1fr);
+	}
+	.item-add {
+		width: 100%;
+	}
+}

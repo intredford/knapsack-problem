@@ -179,8 +179,8 @@ section {
 
 @media screen and (max-width: 650px) {
 	.container {
-		padding-left: 0.8em;
-		padding-right: 0.8em;
+		padding-left: 0.5em;
+		padding-right: 0.5em;
 	}
 }
 
