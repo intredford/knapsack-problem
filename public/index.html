@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Задача о рюкзаке</title>
+	<meta name = "author" content = "Дмитрий">
+	<meta name = "description" content = "Проект по Прикладной математике за 2 курс.">
+
+	<link rel="icon" href="/favicon.png">
+
+	<link rel="preload" href = "/css/fonts/golos-text/GolosText-Variable.woff2" crossorigin='anonymous' as='font' type='font/woff2'>
+	<link rel="preload" href = "/css/fonts/golos-ui/GolosUI-Variable.woff2" crossorigin='anonymous' as='font' type='font/woff2'>
+
+	<link rel="preload" href = "/js/petite-vue.js" as="script">
+	<link rel="preload" href = "/js/worker.js" as="script">
+
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel="stylesheet" href="/css/index.css">
+	<link rel="stylesheet" href = "/css/fonts/golos-ui.css">
+	<link rel="stylesheet" href = "/css/fonts/golos-text.css">
+
+	<script type="module" src = "/js/index.js"></script>
+</head>
+<body 
+	v-cloak
+	@vue:mounted="mounted"
+>
+	
+	<header>
+
+		<menu class = "container">
+
+			<h1>Задача о рюкзаке</h1>
+			
+			<a @click = "showInfo()">Что это</a>
+
+		</menu>
+
+	</header>
+
+	<main class = "container">
+
+		<h2>Свойства</h2>
+
+		<section class = "properties">
+
+			<div 
+				class = "property"
+				v-for = "(property, index) in properties"
+				:key = "index"
+			>
+				<input 
+					type = "radio" 
+					name = "maximize"
+					:checked = "property.maximize"
+					@change = "properties.forEach(property => property.maximize = false); property.maximize = true; solve()"
+					title = "Максимизировать"
+				>
+				<input 
+					name = "property" 
+					type = "text" 
+					title = "Название свойства"
+					v-model = "property.name"
+					@input = "updateProperty(index)"
+					@focus = "property.focused = true"
+					@blur = "property.focused = false"
+				>
+				<button 
+					title = "Удалить свойство"
+					class = "delete"
+					@click = "deleteProperty(index)"
+				>×</button>
+				<button 
+					title = "Добавить свойство"
+					@click = "addProperty"
+					v-if = "index == properties.length - 1"
+				>+</button>
+			</div>
+
+		</section>
+
+		<h2>Предметы</h2>
+
+		<div style = "margin-top: -0.5em">
+			<input type = "checkbox" v-model = "config.stock" id = "stock" @change = "solve()">
+			<label for = "stock">Ограниченное количество</label>
+		</div>
+		
+		<section class = "items">
+
+			<div 
+				class = "item"
+				v-for = "(item, index) in items"
+				:key = "index"
+			>
+
+				<div class = "item-head">
+					<input 
+						type = "text" 
+						name = "item" 
+						title = "Название предмета"
+						v-model = "item.name"
+						style = "font-weight: 600"
+						@change = "solve"
+					>
+					<button 
+						title = "Удалить предмет"
+						class = "delete"
+						@click = "deleteItem(index)"
+					>×</button>
+				</div>
+
+				<div class = "item-properties">
+					<div 
+						class = "item-property form-group"
+						v-for = "(property, i) in item.properties"
+						:class = "{ 
+							maximize: properties[i].maximize,
+							focused: properties[i].focused
+						 }"
+						:key = "i"
+					>
+						<label :for = "`${item.name}-${property.name}`">{{ property.name || '[название не указано]' }}</label>
+						<input 
+							type = "number" 
+							name = "value"
+							:id = "`${item.name}-${property.name}`"
+							v-model = "property.value"
+							@input = "solve()"
+						>
+					</div>
+					<div
+						class = "item-property form-group"
+						v-if = "config.stock"
+					>
+						<label :for = "`${item.name}-stock`">Количество</label>
+						<input 
+							type = "number" 
+							name = "value"
+							:id = "`${item.name}-stock`"
+							v-model = "item.stock"
+							@input = "solve()"
+						>
+					</div>
+				</div>
+			</div>
+			<button class = "item-add" @click = "addItem">
+				+
+			</button>
+		</section>
+
+		<section>
+			<h2>Рюкзаки</h2>
+
+			<div class = "backpacks">
+
+				<div 
+					class = "backpack"
+					v-for = "(backpack, index) in backpacks"
+					:key = "index"
+				>
+					<div class = "backpack-head">
+						<div class = "backpack-number">№ {{ index + 1 }}</div>
+						<button 
+							title = "Удалить рюкзак"
+							class = "delete"
+							@click = "deleteBackpack(index)"
+						>×</button>
+					</div>
+
+					<div class = "backpack-restrictions">
+
+						<div
+							class = "backpack-restriction form-group"
+							v-for = "(restriction, i) in backpack.restrictions"
+							:key = "i"
+							:class = "{
+								focused: properties[i].focused,
+								maximize: properties[i].maximize
+							 }"
+						>
+							<label :for = "`${backpack.index}-${restriction.property.replace(' ', '-')}`">
+								{{ restriction.property || '[не указано]' }} — предел
+								<input type = "checkbox" v-model = "restriction.enabled" @change = "solve()">
+							</label>
+							<input 
+								type = "number" 
+								name = "value"
+								:disabled = "!restriction.enabled"
+								:id = "`${backpack.index}-${restriction.property.replace(' ', '-')}`"
+								v-model = "restriction.value"
+								@input = "solve()"
+							>
+						</div>
+
+					</div>
+				</div>
+				<button class = "item-add" @click = "addBackpack">
+					+
+				</button>
+			</div>
+		</section>
+
+		<section>
+			<h2>Результат</h2>
+
+			<div style = "margin-top: -0.5em;">
+				<input 
+					type = "checkbox" 
+					v-model = "config.pause" 
+					id = "pause"
+					@change = "!config.pause ? solve() : null"
+				>
+				<label for = "pause">Приостановить расчёты</label>
+			</div>
+			
+			<div 
+				class = "results"
+				:style = "{
+					'opacity': (config.pause || computing) ? '0.3' : '1',
+					'transition': !(config.pause || computing) ? 'none' : 'opacity 0.1s ease'
+				}"
+			>
+
+				<div
+					class = "result"
+					v-for = "(backpack, index) in filledBackpacks"
+					:key = "index"
+				>
+					<div class = "result-number">
+						Рюкзак № {{ index + 1 }}
+						<span v-if = "backpack.items.length == 0"> — пустой</span>
+					</div>
+
+					<div class = "result-items">
+						<div
+							class = "result-item"
+							v-for = "(item, i) in backpack.items"
+							:key = "i"
+						>
+							{{ item.quantity }} × {{ item.name }}
+						</div>
+					</div>
+					
+					<div class = "result-properties">
+						<div
+							class = "result-property"
+							v-for = "(value, name) in backpack.propertySums"
+							:key = "name"
+						>
+							<div 
+								v-if = "backpack.restrictions.find(r => r.property === name)?.enabled"
+								class = "result-property-scale"
+							>
+								{{ name }}: {{ pretty(value) }} из {{ pretty(backpack.restrictions.find(r => r.property === name).value) }}
+								<progress 
+									class = "result-property-scale-progress"
+									:value = "value"
+									:max = "backpack.restrictions.find(r => r.property === name).value"
+								></progress>
+							</div>
+							<div 
+								class = "result-property-scale"
+								v-else
+							>
+								{{ name }}: {{ pretty(value) }}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<small :style = "{
+				'opacity': (config.pause || computing) ? '0.3' : '1',
+				'transition': !(config.pause || computing) ? 'none' : 'opacity 0.1s ease'
+			}">
+				Решено за {{ pretty(Math.round(timeElapsed*10)/10) }} мс
+			</small>
+
+		</section>
+
+	</main>
+
+</body>
+
+<script></script>
+
+</html>

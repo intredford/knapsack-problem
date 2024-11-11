@@ -1,0 +1,210 @@
+:root {
+	--font: 'Golos UI', 'Trebuchet MS', sans-serif;
+	--font-accent: 'Golos Text', 'Tahoma', sans-serif;
+	
+	--shadow--lighter: 0 0px 0.4px -8px rgba(0, 0, 0, 0.015), 0 0px 0.9px -8px rgba(0, 0, 0, 0.027), 0 0px 1.4px -8px rgba(0, 0, 0, 0.038), 0 0px 2.2px -8px rgba(0, 0, 0, 0.048), 0 0px 3.1px -8px rgba(0, 0, 0, 0.057), 0 0px 4.4px -8px rgba(0, 0, 0, 0.066), 0 0px 6.3px -8px rgba(0, 0, 0, 0.075), 0 0px 9.1px -8px rgba(0, 0, 0, 0.083), 0 0px 14.1px -8px rgba(3, 1, 0, 0.092), 0 0px 25px -8px rgba(3, 2, 0, 0.1);
+	--shadow--light: 0 0.1px 0.6px rgba(0, 0, 0, 0.014), 0 0.1px 1.3px rgba(0, 0, 0, 0.02), 0 0.3px 2.5px rgba(0, 0, 0, 0.025), 0 0.4px 4.5px rgba(0, 0, 0, 0.03), 0 0.8px 8.4px rgba(5, 2, 0, 0.036), 0 2px 20px rgba(7, 3, 0, 0.05);
+	--shadow: 0 0.2px 0.3px rgba(0, 0, 0, 0.031), 0 0.6px 0.8px rgba(0, 0, 0, 0.044), 0 1.2px 1.6px rgba(0, 0, 0, 0.056), 0 2.6px 3.3px rgba(0, 0, 0, 0.069), 0 7px 9px rgba(0, 0, 0, 0.1);
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: var(--font);
+	font-feature-settings: "kern";
+	text-rendering: optimizeLegibility;
+	line-height: 1.4;
+	font-size: 150%;
+	color: #000000;
+	min-height: 100vh;
+}
+
+[v-cloak] {
+	display: none;
+}
+
+strong, b {
+	font-weight: 700;
+}
+
+a,
+a u {
+	color: #0060a0;
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: .175em;
+	text-decoration-color: color-mix(in srgb, currentColor, transparent 80%);
+	text-decoration-skip: none;
+	text-decoration-skip-ink: none;
+}
+
+a:has(u) {
+	text-decoration: none;
+}
+
+a:hover,
+a:hover u {
+	color: #d65d00;
+	text-decoration-color: currentColor;
+}
+
+a:active {
+	color: #d20000;
+}
+
+a.active {
+	text-decoration: none;
+	color: inherit;
+	pointer-events: none;
+}
+
+h1, h2, h3, h4, h5, h6,
+.title {
+	font-family: var(--font-accent);
+	font-weight: 600;
+	line-height: 1;
+	margin-top: 2rem;
+	margin-bottom: 1rem;
+}
+h1 {
+	margin-top: 0;
+	font-size: 1.5em;
+}
+h2 {
+	font-size: 1.35em;
+}
+h3 {
+	font-size: 1.1em;
+}
+h4 {
+	font-size: 1.05em;
+}
+h5 {
+	font-size: 1em;
+}
+
+hr {
+	border-color: #eeeeee32;
+	margin: 1.5em 0;
+}
+
+small {
+	font-size: 50%;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+	font-family: var(--font);
+	font-size: 70%;
+	padding: 0.1em 0.3em;
+  	border: 1px solid #8888;
+	border-radius: 0.1em;
+}
+
+label {
+	display: block;
+	line-height: 1;
+	font-size: 50%;
+	opacity: 0.7;
+	margin-bottom: -0.2em;
+}
+	input[type="checkbox"] + label,
+	input[type="radio"] + label {
+		display: inline;
+		user-select: none;
+	}
+
+button {
+    background-image: linear-gradient(#eaeaea, #e4e4e4);
+	background-color: #e9e9e9;
+	border: 1px solid #d0d0d0;
+	border-radius: 0.2em;
+	padding: 0.1em 0.3em;
+    font-family: inherit;
+    box-shadow: 0 1px 0 rgba(20,20,20,0.04);
+	font-size: 70%;
+}
+	button:hover {
+        background-image: linear-gradient(#e6e6e6, #e1e1e1);
+        background-color: #e6e6e6;
+        border: 1px solid #ccc;
+	}
+	button:active {
+        background-color: #dfdfdf;
+        border: 1px solid #bebebe;
+	}
+
+.form-group {
+	margin-top: 0.3em;
+}
+
+/* Layout */
+.container {
+	width: 1080px;
+	margin: auto;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+section {
+	margin-bottom: 2em;
+}
+
+@media screen and (max-width: 1100px) {
+	.container {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	.container {
+		padding-left: 0.8em;
+		padding-right: 0.8em;
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	html, body {
+		scrollbar-gutter: stable;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #1b1b1b;
+		color: #f5f4f2;
+	}
+	a, 
+	a u {
+		color: #4eb8ff;
+		text-decoration-color: color-mix(in srgb, currentColor, transparent 60%);
+		text-decoration-thickness: 2px;
+	}
+	input {
+		background-color: #2e2e2e;
+		color: inherit;
+	}
+	button {
+		background-image: linear-gradient(#333333, #2e2e2e);
+		background-color: #333333;
+		border: 1px solid #4d4d4d;
+		color: inherit;
+	}
+		button:hover {
+			background-image: linear-gradient(#2e2e2e, #333333);
+			background-color: #2e2e2e;
+			border: 1px solid #4d4d4d;
+		}
+		button:active {
+			background-color: #333333;
+			border: 1px solid #4d4d4d;
+	}
+	.delete {
+		color: #ff8f8f !important;
+	}
+}

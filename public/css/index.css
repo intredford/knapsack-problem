@@ -1,0 +1,136 @@
+header {
+	margin-bottom: 2em;
+}
+menu {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 2em;
+	border-bottom: 2px solid #9191912e;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+	menu h1 {
+		font-size: 1.5em;
+		margin-bottom: 0;
+	}
+	header a {
+		cursor: pointer;
+	}
+
+.property input[type="text"] {
+	width: 160px;
+}
+
+.items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: auto;
+    gap: 0.5em;
+}
+	.item {
+		background-color: #66909822;
+		border: 1px solid #8883;
+		padding: 0.5em;
+		border-radius: 0.1em;
+	}
+		.item-head {
+			display: flex;
+			gap: 0.3em;
+		}
+			.item-head .delete {
+				width: 1.3em;
+			}
+			.item-head input {
+				width: calc(100% - 1.3em);
+			}
+
+			.item-properties input[type="number"] {
+				width: 100%;
+			}
+	.item-add {
+		width: 1.4em;
+	}
+
+	.backpacks {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		grid-auto-rows: auto;
+		gap: 0.5em;
+	}
+		.backpack {
+			background-color: #9b7ba222;
+			border: 1px solid #8883;
+			padding: 0.5em;
+			border-radius: 0.1em;
+		}
+			.backpack-head {
+				display: flex;
+				gap: 0.3em;
+				justify-content: space-between;
+				align-items: baseline;
+			}
+			.backpack-number {
+				font-weight: 600;
+				font-size: 70%;
+				font-family: var(--font-accent);
+			}
+			.backpack input[type="number"] {
+				width: 100%;
+			}
+			.backpack-restriction label > input {
+				height: 0.8em;
+  				vertical-align: middle;
+			}
+
+
+	.results {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-auto-rows: auto;
+		gap: 0.5em;
+	}
+		.result {
+			background-color: #aaa2;
+			border: 1px solid #8885;
+			padding: 0.4em 0.5em;
+			border-radius: 0.1em;
+			font-size: 70%;
+			display: flex;
+			flex-direction: column;
+			gap: 0.5em;
+		}
+			.result-number {
+				font-weight: 600;
+				font-family: var(--font-accent);
+			}
+			.result-properties {
+				margin-top: auto;
+			}
+			.result-property-scale {
+				display: flex;
+				flex-direction: column;
+				margin-top: 0.3em;
+			}
+				.result-property-scale-progress {
+					width: 100%;
+					border-radius: 0;
+					height: 6px;
+					border: none;
+					-webkit-appearance: none; -moz-appearance: none; appearance: none;
+				}
+
+.delete {
+	color: #6b0000;
+}
+	.delete:hover {
+		color: #a20000;
+	}
+
+.form-group.maximize label {
+	text-decoration: underline;
+}
+.form-group.focused label {
+	color: AccentColor;
+	opacity: 1;
+}

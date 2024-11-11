@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Golos UI';
+    src: local('Golos UI Variable'), local('GolosUI-Variable'),
+        url('golos-ui/GolosUI-Variable.woff2') format('woff2');
+    font-weight: 100 1000;
+    font-stretch: 25% 150%;
+    font-display: swap;
+}
