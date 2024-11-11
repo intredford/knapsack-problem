@@ -146,7 +146,7 @@ createApp({
 	},
 
 	initWorker() {
-		this.worker = new Worker('/js/worker.js')
+		this.worker = new Worker('./worker.js')
 		this.worker.onmessage = (e) => {
 			const { backpacks, timeElapsed } = e.data
 			this.solution = backpacks;
