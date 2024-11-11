@@ -4,9 +4,9 @@ const app = express()
 import compression from 'express-compression'
 app.use(compression())
 
-// import apicache from 'apicache'
-// const cache = apicache.middleware
-// app.use(cache('12 hours'))
+import apicache from 'apicache'
+const cache = apicache.middleware
+app.use(cache('12 hours'))
 
 app.use(express.static('public'))
 
