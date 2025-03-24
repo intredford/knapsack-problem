@@ -36,7 +36,8 @@ createApp({
 	],
 	config: {
 		stock: false,
-		pause: false
+		pause: false,
+		debug: false
 	},
 	worker: null,
 	computing: false,

@@ -285,11 +285,38 @@
 
 		</section>
 
-		<h2>Solution</h2>
-		<pre>{{solution}}</pre>
+		<section>
 
-		<h2>Backpacks</h2>
-		<pre>{{backpacks}}</pre>
+			<input 
+				type = "checkbox" 
+				v-model = "config.debug" 
+				id = "debug"
+			>
+			<label for = "debug">Отладка</label>
+
+			<div 
+				class = "debug"
+				v-if = "config.debug"
+			>
+				<div>
+					<h2>Свойства</h2>
+					<pre>{{ properties }}</pre>
+				</div>
+				<div>
+					<h2>Предметы</h2>
+					<pre>{{ items }}</pre>
+				</div>
+				<div>
+					<h2>Рюкзаки</h2>
+					<pre>{{ backpacks }}</pre>
+				</div>
+				<div>
+					<h2>Решение</h2>
+					<pre>{{ filledBackpacks }}</pre>
+				</div>
+			</div>
+	
+		</section>
 
 	</main>
 
