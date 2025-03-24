@@ -116,7 +116,7 @@ createApp({
 		return this.solution || this.backpacks;
 	},
 
-	solve(force=true) {
+	solve() {
 		if (!this.computing && !this.config.pause && this.worker) {
 			this.worker.terminate()
 			this.initWorker()
@@ -158,7 +158,7 @@ createApp({
 
 	mounted() {
 		this.initWorker()
-		this.solve(false)
+		this.solve()
 	}
 
 }).mount()
