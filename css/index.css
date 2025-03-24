@@ -22,6 +22,16 @@ menu {
 	width: 160px;
 }
 
+	.property input[type="text"].invalid {
+		background-color: color-mix(in srgb, var(--color-error), transparent 85%);
+	}
+
+.property-error {
+	display: inline;
+	color: var(--color-error);
+	font-size: 0.6em;
+}
+
 .items {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

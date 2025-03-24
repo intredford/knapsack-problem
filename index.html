@@ -63,6 +63,7 @@
 				>
 				<input 
 					name = "property" 
+					:class = "{ invalid: property.error }"
 					type = "text" 
 					title = "Название свойства"
 					v-model = "property.name"
@@ -80,6 +81,7 @@
 					@click = "addProperty"
 					v-if = "index == properties.length - 1"
 				>+</button>
+				<div class = "property-error" v-if = "property.error">{{ property.error }}</div>
 			</div>
 
 		</section>
@@ -240,8 +242,7 @@
 					<div class = "result-items">
 						<div
 							class = "result-item"
-							v-for = "(item, i) in backpack.items"
-							:key = "i"
+							v-for = "(item) in backpack.items"
 						>
 							{{ item.quantity }} × {{ item.name }}
 						</div>
@@ -250,18 +251,18 @@
 					<div class = "result-properties">
 						<div
 							class = "result-property"
-							v-for = "(value, name) in backpack.propertySums"
+							v-for = "([name, value], i) in Object.entries(backpack.propertySums || {})"
 							:key = "name"
 						>
 							<div 
-								v-if = "backpack.restrictions.find(r => r.property === name)?.enabled"
+								v-if = "backpack.restrictions[i].enabled"
 								class = "result-property-scale"
 							>
-								{{ name }}: {{ pretty(value) }} из {{ pretty(backpack.restrictions.find(r => r.property === name).value) }}
+								{{ name }}: {{ pretty(value) }} из {{ pretty(backpack.restrictions[i].value) }}
 								<progress 
 									class = "result-property-scale-progress"
 									:value = "value"
-									:max = "backpack.restrictions.find(r => r.property === name).value"
+									:max = "backpack.restrictions[i].value"
 								></progress>
 							</div>
 							<div 
@@ -283,6 +284,12 @@
 			</small>
 
 		</section>
+
+		<h2>Solution</h2>
+		<pre>{{solution}}</pre>
+
+		<h2>Backpacks</h2>
+		<pre>{{backpacks}}</pre>
 
 	</main>
 

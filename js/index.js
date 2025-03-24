@@ -49,7 +49,7 @@ createApp({
 			item.properties.push({ name: '', value: 0 })
 		})
 		this.backpacks.forEach(backpack => {
-			backpack.restrictions.push({ property: null, value: 0, enabled: false })
+			backpack.restrictions.push({ property: "", value: 0, enabled: false })
 		})
 		queueMicrotask(() => {
 			document.querySelector('.properties').lastElementChild.querySelector('input[type="text"]').focus()
@@ -58,11 +58,26 @@ createApp({
 	},
 
 	updateProperty(index) {
+		const name = this.properties[index].name
+		if (/^\d/.test(name)) {
+			this.properties[index].error = 'Не должно начинаться с цифры'
+			return
+		} else {
+			delete this.properties[index].error
+		}
 		this.items.forEach(item => {
-			item.properties[index].name = this.properties[index].name
+			item.properties[index].name = name
 		})
 		this.backpacks.forEach(backpack => {
-			backpack.restrictions[index].property = this.properties[index].name
+			backpack.restrictions[index].property = name
+		})
+		this.solution?.forEach(backpack => {
+			backpack.restrictions[index].property = name
+			backpack.propertySums = Object.fromEntries(
+				Object.entries(backpack.propertySums).map(([key, value], i) => { 
+					return [ (i===index ? name : key), value ]
+				}
+			)) 
 		})
 	},
 

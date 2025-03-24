@@ -18,7 +18,7 @@ function solve(backpacks, items, properties, config) {
 	)
 
 	// Определяем, какое свойство нужно максимизировать.
-	const maximizedProperty = properties.find(p => p.maximize).name
+	const maximizedPropertyIndex = properties.findIndex(p => p.maximize)
 
 	// Идём по рюкзакам:
 	for (const [index, backpack] of backpacks.entries()) {
@@ -37,9 +37,9 @@ function solve(backpacks, items, properties, config) {
 		const itemEfficiencies = items
 			.filter(item => remainingStock.get(item.name) > 0)
 			.map(item => {
-				const prioritizedPropValue = item.properties.find(p => p.name === maximizedProperty).value
-				const restrictions = backpack.restrictions.map(r => {
-					const prop = item.properties.find(p => p.name === r.property)
+				const prioritizedPropValue = item.properties[maximizedPropertyIndex].value
+				const restrictions = backpack.restrictions.map((r, rIndex) => {
+					const prop = item.properties[rIndex]
 					return prop ? prop.value / r.value : 0
 				})
 				return {
@@ -55,14 +55,17 @@ function solve(backpacks, items, properties, config) {
 			// Проверяем потенциал оставшейся ветки
 			const remainingValue = itemEfficiencies.slice(depth).reduce((sum, {item, efficiency, maxQuantity}) => 
 				sum + efficiency * maxQuantity, 0)
+
+			const entries = Object.entries(propertySums)
+			const maximizedValue = entries.length ? entries[maximizedPropertyIndex][1] : 0
 			
-			if ((propertySums[maximizedProperty] || 0) + remainingValue <= bestValue) {
+			if (maximizedValue + remainingValue <= bestValue) {
 				return
 			}
 	
 			// Обновляем лучший результат, если нашли
-			if ((propertySums[maximizedProperty] || 0) > bestValue) {
-				bestValue = propertySums[maximizedProperty] || 0
+			if (maximizedValue > bestValue) {
+				bestValue = maximizedValue
 				bestCombination = combination.map(item => ({...item}))
 				bestSums = {...propertySums}
 			}
@@ -102,10 +105,10 @@ function solve(backpacks, items, properties, config) {
 					let canAdd = true;
 	
 					// Проверяем возможность добавления mid предметов
-					for (const prop of item.properties) {
+					for (const [propIndex, prop] of item.properties.entries()) {
 						const newSum = (newSums[prop.name] || 0) + prop.value * mid;
-						const restriction = backpack.restrictions.find(r => r.property === prop.name);
-						if (restriction && newSum > restriction.value) {
+						const restriction = backpack.allRestrictions[propIndex];
+						if (restriction.enabled && newSum > restriction.value) {
 							canAdd = false;
 							break;
 						}

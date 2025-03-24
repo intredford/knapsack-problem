@@ -3,6 +3,7 @@
 	--font-accent: 'Golos Text', 'Tahoma', sans-serif;
 
 	--color-accent: #0078d7;
+	--color-error: #f00;
 	
 	--shadow--lighter: 0 0px 0.4px -8px rgba(0, 0, 0, 0.015), 0 0px 0.9px -8px rgba(0, 0, 0, 0.027), 0 0px 1.4px -8px rgba(0, 0, 0, 0.038), 0 0px 2.2px -8px rgba(0, 0, 0, 0.048), 0 0px 3.1px -8px rgba(0, 0, 0, 0.057), 0 0px 4.4px -8px rgba(0, 0, 0, 0.066), 0 0px 6.3px -8px rgba(0, 0, 0, 0.075), 0 0px 9.1px -8px rgba(0, 0, 0, 0.083), 0 0px 14.1px -8px rgba(3, 1, 0, 0.092), 0 0px 25px -8px rgba(3, 2, 0, 0.1);
 	--shadow--light: 0 0.1px 0.6px rgba(0, 0, 0, 0.014), 0 0.1px 1.3px rgba(0, 0, 0, 0.02), 0 0.3px 2.5px rgba(0, 0, 0, 0.025), 0 0.4px 4.5px rgba(0, 0, 0, 0.03), 0 0.8px 8.4px rgba(5, 2, 0, 0.036), 0 2px 20px rgba(7, 3, 0, 0.05);
