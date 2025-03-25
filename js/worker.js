@@ -20,8 +20,23 @@ function solve(backpacks, items, properties, config) {
 	// Определяем, какое свойство нужно максимизировать.
 	const maximizedPropertyIndex = properties.findIndex(p => p.maximize)
 
+	// Кэш заполненных рюкзаков.
+	const backpacksCache = []
+
 	// Идём по рюкзакам:
-	for (const [index, backpack] of backpacks.entries()) {
+	for (let [index, backpack] of backpacks.entries()) {
+
+		// Если остатки отключены и рюкзак идентичен какому-либо из предыдущих,
+		// то просто копируем заполнение предыдущего.
+		if (!config.stock) {
+			const restrictions = JSON.stringify(backpack.restrictions)
+			const identical = backpacksCache.find(b => JSON.stringify(b.restrictions) === restrictions)
+			console.log(backpacksCache, restrictions, identical)
+			if (identical) {
+				backpacks[index] = structuredClone(identical)
+				continue
+			}
+		}
 
 		// Инициализация.
 		backpack.items = null
@@ -32,7 +47,7 @@ function solve(backpacks, items, properties, config) {
 		// Убираем снятые ограничения.
 		backpack.allRestrictions = backpack.restrictions
 		backpack.restrictions = backpack.restrictions.filter(restriction => restriction.enabled)
-		
+
 		// Расчитываем "ценность" предметов.
 		const itemEfficiencies = items
 			.filter(item => remainingStock.get(item.name) > 0)
@@ -142,6 +157,11 @@ function solve(backpacks, items, properties, config) {
 		backpack.propertySums = bestSums
 		backpack.restrictions = backpack.allRestrictions
 		delete backpack.allRestrictions
+
+		// Кешируем заполнение рюкзака, если остатки отключены.
+		if (!config.stock) {
+			backpacksCache.push(backpack)
+		}
 
 		// Обновляем оставшееся количество предметов.
 		if (config.stock) {
